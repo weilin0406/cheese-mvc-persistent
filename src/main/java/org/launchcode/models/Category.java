@@ -3,45 +3,31 @@ package org.launchcode.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by LaunchCode
- */
 @Entity
-public class Cheese {
 
+public class Category {
     @Id
     @GeneratedValue
     private int id;
 
     @NotNull
-    @Size(min=3, max=15)
+    @Size(min = 3, max = 15)
     private String name;
 
-    @NotNull
-    @Size(min=1, message = "Description must not be empty")
     private String description;
 
-    @ManyToOne
-    private Category category;
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private List<Cheese> cheeses = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "cheeses")
-    private List<Menu> menus;
+    public Category() {
+    }
 
-    public Cheese(String name, String description) {
+    public Category(String name) {
         this.name = name;
-        this.description = description;
-    }
-
-    public Cheese() { }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public int getId() {
@@ -63,4 +49,10 @@ public class Cheese {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<Cheese> getCheeses() {
+        return cheeses;
+    }
 }
+
+

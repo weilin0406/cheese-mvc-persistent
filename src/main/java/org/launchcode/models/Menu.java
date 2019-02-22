@@ -1,48 +1,32 @@
 package org.launchcode.models;
 
+import org.apache.tomcat.jni.User;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-/**
- * Created by LaunchCode
- */
 @Entity
-public class Cheese {
+public class Menu {
 
     @Id
     @GeneratedValue
     private int id;
 
     @NotNull
-    @Size(min=3, max=15)
+    @Size(min = 3, max = 15)
     private String name;
 
-    @NotNull
-    @Size(min=1, message = "Description must not be empty")
     private String description;
 
     @ManyToOne
-    private Category category;
+    private User user;
 
-    @ManyToMany(mappedBy = "cheeses")
-    private List<Menu> menus;
+    @ManyToMany
+    private List<Cheese> cheeses;
 
-    public Cheese(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public Cheese() { }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    public Menu() {}
 
     public int getId() {
         return id;
@@ -56,11 +40,31 @@ public class Cheese {
         this.name = name;
     }
 
+    public List<Cheese> getCheeses() {
+        return cheeses;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void addItem(Cheese item){
+        cheeses.add(item);
+    }
+
+    public void removeItem(Cheese item) {
+        cheeses.remove(item);
     }
 }

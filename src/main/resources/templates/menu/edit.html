@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+    <head th:replace="fragments :: head"></head>
+
+    <body class="container">
+
+        <nav th:replace="fragments :: navigation"></nav>
+
+        <h2 th:text="${title}">Default Title</h2>
+
+
+
+        <form method="post" th:object="${menu}" action="/menu/edit">
+            <div class="form-group">
+                <label th:for="name">Menu Name</label>
+                <input class="form-control" th:field="*{name}"/>
+                <span th:errors="*{name}" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label th:for="description">Description</label>
+                <input class="form-control" th:field="*{description}"/>
+                <span th:errors="*{description}" class="error"></span>
+            </div>
+            <input th:unless="${menuId}" type="hidden" name="menuId" th:value="${menu.id}"/>
+            <input th:if="${menuId}" type="hidden" name="menuId" th:value="${menuId}"/>
+            <input type="submit" class="btn btn-dark" value="Edit Menu Details"/>
+        </form>
+
+    </body>
+</html>

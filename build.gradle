@@ -36,5 +36,5 @@ dependencies {
 }
 
 bootRun {
-	addResources = true
+	systemProperties = System.properties
 }
