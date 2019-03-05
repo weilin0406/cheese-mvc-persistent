@@ -4,9 +4,11 @@
 
 <body class="container">
 
-<h1 th:text="${title}">Default Title</h1>
-
 <nav th:replace="fragments :: navigation"></nav>
+
+<h2 th:text="${title}">Default Title</h2>
+
+
 
 <p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(</p>
 
@@ -16,19 +18,27 @@
         <th>Name</th>
         <th>Description</th>
         <th>Category</th>
-        <th>Edit</th>
+        <th>Menus</th>
     </tr>
 
     <tr th:each="cheese : ${cheeses}">
-        <td th:text="${cheese.name}"></td>
+        <td><a th:href="'/cheese/edit/'+${cheese.id}" th:text="${cheese.name}"></a></td>
         <td th:text="${cheese.description}"></td>
         <td th:text="${cheese.category.name}"></td>
-        <td><a th:href="@{'/cheese/edit/' + ${cheese.id}}">edit</a></td>
+        <td><a style="display: block;" th:each="menu : ${cheese.menus}" th:href="'/menu/view/'+${menu.id}" th:text="${menu.name}"></a></td>
     </tr>
 
 </table>
 
-<nav th:replace="fragments :: cheesenavigation"></nav>
-
+<div th:unless="${categoryId}">
+    <a href="/cheese/add"><button type="button" class="btn btn-outline-dark">Add Cheese</button></a>
+    <a href="/cheese/remove"><button type="button" class="btn btn-outline-dark">Remove Cheese</button></a>
+</div>
+<div th:if="${categoryId}">
+    <a th:href="'/category/edit/'+${categoryId}"><button type="button" class="btn btn-outline-dark">Edit Category</button></a>
+</div>
+<br/>
+<br/>
+<br/>
 </body>
 </html>

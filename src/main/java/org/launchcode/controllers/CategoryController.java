@@ -13,16 +13,11 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("category")
 public class CategoryController {
+
     @Autowired
     private CategoryDao categoryDao;
-//    @RequestMapping(value = "")
-//    public String index(Model model){
-//        model.addAttribute("title", "Categories");
-//        model.addAttribute("items", this.categoryDao.findAll());
-//        return "category/index";
-//    }
 
-    @RequestMapping(value="", method = RequestMethod.GET)
+    @RequestMapping(value="")
     public String index(Model model) {
 
         model.addAttribute("categories", categoryDao.findAll());

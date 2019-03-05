@@ -2,7 +2,6 @@ package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
 import org.launchcode.models.Cheese;
-
 import org.launchcode.models.data.CategoryDao;
 import org.launchcode.models.data.CheeseDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,24 +40,20 @@ public class CheeseController {
     public String displayAddCheeseForm(Model model) {
         model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
-//        model.addAttribute("cheeseTypes", CheeseType.values());
         model.addAttribute("categories", categoryDao.findAll());
         return "cheese/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(
-            @ModelAttribute  @Valid Cheese newCheese,
-            Errors errors, @RequestParam int categoryId,
-            Model model) {
-        Category cat = categoryDao.findOne(categoryId);
+    public String processAddCheeseForm(@ModelAttribute  @Valid Cheese newCheese,
+                                       Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Cheese");
             model.addAttribute("categories", categoryDao.findAll());
             return "cheese/add";
         }
-        newCheese.setCategory(cat);
+
         cheeseDao.save(newCheese);
         return "redirect:";
     }
@@ -117,5 +112,7 @@ public class CheeseController {
         model.addAttribute("categoryId", cat.getId());
         return "cheese/index";
     }
+
+
 
 }

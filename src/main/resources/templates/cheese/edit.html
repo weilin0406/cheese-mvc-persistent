@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-
 <head th:replace="fragments :: head"></head>
 
 <body class="container">
@@ -11,20 +10,29 @@
 
 
 
-<form method="post" th:object="${category}" action="/category/edit">
+<form method="post" th:object="${cheese}" action="/cheese/edit">
     <div class="form-group">
-        <label th:for="name">Category Name</label>
-        <input class="form-control" th:field="*{name}"/>
+        <label th:for="name">Name</label>
+        <input class="form-control" th:field="*{name}" />
         <span th:errors="*{name}" class="error"></span>
     </div>
-    <div th:if="*{description}" class="form-group">
-        <label th:for="description">Category Description</label>
+    <div class="form-group">
+        <label th:for="description">Description</label>
         <input class="form-control" th:field="*{description}"/>
         <span th:errors="*{description}" class="error"></span>
     </div>
-    <input th:unless="${categoryId}" type="hidden" name="categoryId" th:value="${category.id}"/>
-    <input th:if="${categoryId}" type="hidden" name="categoryId" th:value="${categoryId}"/>
-    <input type="submit" class="btn btn-dark" value="Edit Category"/>
+    <div class="form-group">
+        <label th:for="category">Type</label>
+        <select th:field="*{category}">
+            <option th:each="category : ${categories}"
+                    th:text="${category.name}" th:value="${category.id}"></option>
+        </select>
+        <span th:errors="*{category}" class="error"></span>
+    </div>
+
+    <input th:unless="${cheeseId}" type="hidden" name="cheeseId" th:value="${cheese.id}" />
+    <input th:if="${cheeseId}" type="hidden" name="cheeseId" th:value="${cheeseId}" />
+    <input type="submit" class="btn btn-outline-dark" value="Edit Cheese" />
 </form>
 
 </body>

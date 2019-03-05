@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-
 public class Category {
+
     @Id
     @GeneratedValue
     private int id;
@@ -54,5 +54,3 @@ public class Category {
         return cheeses;
     }
 }
-
-

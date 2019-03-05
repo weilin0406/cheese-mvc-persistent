@@ -59,7 +59,7 @@ public class UserController {
 
     @RequestMapping(value="detail/{userId}", method = RequestMethod.GET)
     public String viewUserDetails(Model model, @PathVariable int userId){
-        model.addAttribute("title", "user Details");
+        model.addAttribute("title", "User Details");
         model.addAttribute("user", userDao.findOne(userId));
 
 
